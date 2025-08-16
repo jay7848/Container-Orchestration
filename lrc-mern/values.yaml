@@ -1,0 +1,15 @@
+namespace: lrc
+frontend:
+  image: "jay15229/lrc-frontend:1.0"
+  replicas: 1
+backend:
+  image: "jay15229/lrc-backend:1.0"
+  replicas: 1
+  port: 3001
+  mongoEnvName: MONGO_URI
+  mongoUri: "mongodb://mongo.lrc.svc.cluster.local:27017/learnerdb"
+mongo:
+  image: "mongo:6"
+  storage: "2Gi"
+ingress:
+  host: "lr.local"

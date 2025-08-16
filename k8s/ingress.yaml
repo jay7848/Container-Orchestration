@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lrc-ingress
+  namespace: lrc
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: lr.local
+      http:
+        paths:
+          # Frontend at /
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lrc-frontend-svc
+                port:
+                  number: 80
+          # Backend at /api (no regex, no rewrite)
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: lrc-backend-svc
+                port:
+                  number: 3001   # service port; currently targetPort=3000

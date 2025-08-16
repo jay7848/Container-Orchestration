@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lrc-backend-svc
+  namespace: {{ .Values.namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: lrc-backend
+  ports:
+    - port: {{ .Values.backend.port }}
+      targetPort: {{ .Values.backend.port }}
+      name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lrc-backend
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: lrc-backend
+  template:
+    metadata:
+      labels:
+        app: lrc-backend
+    spec:
+      containers:
+        - name: backend
+          image: {{ .Values.backend.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.backend.port }}
+          env:
+            - name: PORT
+              value: "{{ .Values.backend.port }}"
+            - name: {{ .Values.backend.mongoEnvName }}
+              value: "{{ .Values.backend.mongoUri }}"
+            - name: MONGODB_URI
+              value: "{{ .Values.backend.mongoUri }}"
+            - name: DATABASE_URL
+              value: "{{ .Values.backend.mongoUri }}"
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 20

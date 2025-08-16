@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lrc-backend-svc
+  namespace: lrc
+spec:
+  type: ClusterIP
+  selector:
+    app: lrc-backend
+  ports:
+    - name: http
+      port: 3001          # service port (Ingress sends here)
+      targetPort: 3000    # container listens on 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lrc-backend
+  namespace: lrc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lrc-backend
+  template:
+    metadata:
+      labels:
+        app: lrc-backend
+    spec:
+      containers:
+        - name: backend
+          image: jay15229/lrc-backend:1.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: HOST
+              value: "0.0.0.0"
+            - name: BASE_PATH
+              value: "/api"
+            - name: MONGO_URI
+              value: "mongodb://mongo.lrc.svc.cluster.local:27017/learnerdb"
+            - name: MONGODB_URI
+              value: "mongodb://mongo.lrc.svc.cluster.local:27017/learnerdb"
+            - name: DATABASE_URL
+              value: "mongodb://mongo.lrc.svc.cluster.local:27017/learnerdb"
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 6

@@ -1,0 +1,570 @@
+Started by user jay gupta
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/lrc-mern-pipeline
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKERHUB_CREDS or $DOCKERHUB_CREDS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Preflight)
+[Pipeline] sh
+[2025-08-16T11:42:35.009Z] + set -e
+[2025-08-16T11:42:35.009Z] + echo Docker version:
+[2025-08-16T11:42:35.009Z] Docker version:
+[2025-08-16T11:42:35.009Z] + docker --version
+[2025-08-16T11:42:35.009Z] Docker version 20.10.24+dfsg1, build 297e128
+[2025-08-16T11:42:35.009Z] + echo Kubectl version:
+[2025-08-16T11:42:35.009Z] Kubectl version:
+[2025-08-16T11:42:35.009Z] + kubectl version --client=true
+[2025-08-16T11:42:35.009Z] Client Version: v1.33.1
+[2025-08-16T11:42:35.009Z] Kustomize Version: v5.6.0
+[2025-08-16T11:42:35.009Z] + echo Helm version:
+[2025-08-16T11:42:35.009Z] Helm version:
+[2025-08-16T11:42:35.009Z] + helm version --short
+[2025-08-16T11:42:35.559Z] WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /var/jenkins_home/.kube/config
+[2025-08-16T11:42:35.559Z] WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /var/jenkins_home/.kube/config
+[2025-08-16T11:42:35.559Z] v3.15.4+gfa9efb0
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] echo
+[2025-08-16T11:42:35.769Z] Checking out frontend and backend repos...
+[Pipeline] dir
+[2025-08-16T11:42:35.795Z] Running in /var/jenkins_home/workspace/lrc-mern-pipeline/frontend
+[Pipeline] {
+[Pipeline] git
+[2025-08-16T11:42:35.868Z] The recommended git tool is: NONE
+[2025-08-16T11:42:35.870Z] No credentials specified
+[2025-08-16T11:42:35.872Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/lrc-mern-pipeline/frontend/.git # timeout=10
+[2025-08-16T11:42:35.913Z] Fetching changes from the remote Git repository
+[2025-08-16T11:42:35.932Z]  > git config remote.origin.url https://github.com/UnpredictablePrashant/learnerReportCS_frontend.git # timeout=10
+[2025-08-16T11:42:35.957Z] Fetching upstream changes from https://github.com/UnpredictablePrashant/learnerReportCS_frontend.git
+[2025-08-16T11:42:35.957Z]  > git --version # timeout=10
+[2025-08-16T11:42:35.977Z]  > git --version # 'git version 2.39.5'
+[2025-08-16T11:42:35.978Z]  > git fetch --tags --force --progress -- https://github.com/UnpredictablePrashant/learnerReportCS_frontend.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-16T11:42:38.062Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2025-08-16T11:42:38.085Z] Checking out Revision 76b7a70b8342b672508ca181456690fcea31df36 (refs/remotes/origin/main)
+[2025-08-16T11:42:38.086Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-16T11:42:38.116Z]  > git checkout -f 76b7a70b8342b672508ca181456690fcea31df36 # timeout=10
+[2025-08-16T11:42:38.156Z]  > git branch -a -v --no-abbrev # timeout=10
+[2025-08-16T11:42:38.188Z]  > git branch -D main # timeout=10
+[2025-08-16T11:42:38.216Z]  > git checkout -b main 76b7a70b8342b672508ca181456690fcea31df36 # timeout=10
+[2025-08-16T11:42:38.268Z] Commit message: "FIX: fixed the frontend with the api request and documentation"
+[2025-08-16T11:42:38.271Z]  > git rev-list --no-walk 76b7a70b8342b672508ca181456690fcea31df36 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-16T11:42:38.459Z] Running in /var/jenkins_home/workspace/lrc-mern-pipeline/backend
+[Pipeline] {
+[Pipeline] git
+[2025-08-16T11:42:38.536Z] The recommended git tool is: NONE
+[2025-08-16T11:42:38.537Z] No credentials specified
+[2025-08-16T11:42:38.539Z]  > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/lrc-mern-pipeline/backend/.git # timeout=10
+[2025-08-16T11:42:38.560Z] Fetching changes from the remote Git repository
+[2025-08-16T11:42:38.580Z]  > git config remote.origin.url https://github.com/UnpredictablePrashant/learnerReportCS_backend.git # timeout=10
+[2025-08-16T11:42:38.601Z] Fetching upstream changes from https://github.com/UnpredictablePrashant/learnerReportCS_backend.git
+[2025-08-16T11:42:38.601Z]  > git --version # timeout=10
+[2025-08-16T11:42:38.621Z]  > git --version # 'git version 2.39.5'
+[2025-08-16T11:42:38.622Z]  > git fetch --tags --force --progress -- https://github.com/UnpredictablePrashant/learnerReportCS_backend.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-16T11:42:39.413Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2025-08-16T11:42:39.446Z] Checking out Revision 19943d7b81fed4848c5587cf48c5fa83bd38c649 (refs/remotes/origin/main)
+[2025-08-16T11:42:39.446Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-16T11:42:39.471Z]  > git checkout -f 19943d7b81fed4848c5587cf48c5fa83bd38c649 # timeout=10
+[2025-08-16T11:42:39.494Z]  > git branch -a -v --no-abbrev # timeout=10
+[2025-08-16T11:42:39.514Z]  > git branch -D main # timeout=10
+[2025-08-16T11:42:39.532Z]  > git checkout -b main 19943d7b81fed4848c5587cf48c5fa83bd38c649 # timeout=10
+[2025-08-16T11:42:39.557Z] Commit message: "changes"
+[2025-08-16T11:42:39.557Z]  > git rev-list --no-walk 19943d7b81fed4848c5587cf48c5fa83bd38c649 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Write Dockerfiles (known-good))
+[Pipeline] dir
+[2025-08-16T11:42:39.898Z] Running in /var/jenkins_home/workspace/lrc-mern-pipeline/frontend
+[Pipeline] {
+[Pipeline] writeFile
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-16T11:42:40.125Z] Running in /var/jenkins_home/workspace/lrc-mern-pipeline/backend
+[Pipeline] {
+[Pipeline] writeFile
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build FE Image)
+[Pipeline] dir
+[2025-08-16T11:42:40.516Z] Running in /var/jenkins_home/workspace/lrc-mern-pipeline/frontend
+[Pipeline] {
+[Pipeline] sh
+[2025-08-16T11:42:40.862Z] + docker build -t jay15229/lrc-frontend:1.1-7 -t jay15229/lrc-frontend:latest --build-arg REACT_APP_API_BASE_URL=http://lr.local/api .
+[2025-08-16T11:42:40.862Z] #1 [internal] load build definition from Dockerfile
+[2025-08-16T11:42:40.862Z] #1 sha256:437fb24f4ad4ceb9fcc6f3ed6da5fdeb812100eebdcc5e04abb3eed8c3b1910f
+[2025-08-16T11:42:40.862Z] #1 transferring dockerfile: 394B 0.0s done
+[2025-08-16T11:42:40.862Z] #1 DONE 0.0s
+[2025-08-16T11:42:40.862Z] 
+[2025-08-16T11:42:40.862Z] #2 [internal] load metadata for docker.io/library/nginx:alpine
+[2025-08-16T11:42:40.862Z] #2 sha256:061e1952987e6448a170f50cfa273a095fbeeca7d83eedc8e5f175b65942a09f
+[2025-08-16T11:42:40.862Z] #2 DONE 0.0s
+[2025-08-16T11:42:40.862Z] 
+[2025-08-16T11:42:40.862Z] #3 [internal] load metadata for docker.io/library/node:20-alpine
+[2025-08-16T11:42:40.862Z] #3 sha256:ccecbba0a2e5c072602481fed7ccd4ede19058d4d7721294b010c0440ce9c682
+[2025-08-16T11:42:40.862Z] #3 DONE 0.0s
+[2025-08-16T11:42:40.862Z] 
+[2025-08-16T11:42:40.862Z] #4 [internal] load .dockerignore
+[2025-08-16T11:42:40.862Z] #4 sha256:ef3e09557ef492573de3b2f880851f55893cdc6ac2f41137677e14556e9c843a
+[2025-08-16T11:42:40.862Z] #4 transferring context: 2B done
+[2025-08-16T11:42:40.862Z] #4 DONE 0.0s
+[2025-08-16T11:42:40.862Z] 
+[2025-08-16T11:42:40.862Z] #11 [build 1/6] FROM docker.io/library/node:20-alpine
+[2025-08-16T11:42:40.862Z] #11 sha256:ee64afde9d9add5c70cf947f7725770ad9cf5f229efdb08cd301b2019744184d
+[2025-08-16T11:42:40.862Z] #11 DONE 0.0s
+[2025-08-16T11:42:40.862Z] 
+[2025-08-16T11:42:40.862Z] #5 [stage-1 1/2] FROM docker.io/library/nginx:alpine
+[2025-08-16T11:42:40.862Z] #5 sha256:a151f6dacd421532f3c855bd23f972e2d2f5555f9dc009ea59048f10ca161120
+[2025-08-16T11:42:40.862Z] #5 DONE 0.0s
+[2025-08-16T11:42:40.862Z] 
+[2025-08-16T11:42:40.862Z] #9 [internal] load build context
+[2025-08-16T11:42:40.862Z] #9 sha256:d35b63e6bbbda40a740983893ae312404fcf7bc39129087c48e3ab8ad476aba0
+[2025-08-16T11:42:41.777Z] #9 transferring context: 3.61MB 0.5s done
+[2025-08-16T11:42:41.777Z] #9 DONE 0.5s
+[2025-08-16T11:42:41.777Z] 
+[2025-08-16T11:42:41.777Z] #10 [build 2/6] WORKDIR /app
+[2025-08-16T11:42:41.777Z] #10 sha256:9ef5dd9e0e197518e0821985b36fbd4f83253c03c0a9d478aade892ed86e6704
+[2025-08-16T11:42:41.777Z] #10 CACHED
+[2025-08-16T11:42:41.777Z] 
+[2025-08-16T11:42:41.777Z] #8 [build 3/6] COPY package*.json ./
+[2025-08-16T11:42:41.777Z] #8 sha256:690131c978426b0f77ef0284521fb8eff7fa9f4971504e7337f4c2ab680cb857
+[2025-08-16T11:42:41.777Z] #8 CACHED
+[2025-08-16T11:42:41.777Z] 
+[2025-08-16T11:42:41.777Z] #7 [build 4/6] RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+[2025-08-16T11:42:41.777Z] #7 sha256:0eb2ffdf1ebb7963fe81fd5eb057fcd0aaeaf35512429e43a0f21ac7add684b0
+[2025-08-16T11:42:41.777Z] #7 CACHED
+[2025-08-16T11:42:41.777Z] 
+[2025-08-16T11:42:41.777Z] #6 [build 5/6] COPY . .
+[2025-08-16T11:42:41.777Z] #6 sha256:2c1622df713a2780b40fd2a96909df8cd80854685b8ea38d2f8bf07bcfd04e78
+[2025-08-16T11:42:41.777Z] #6 DONE 0.3s
+[2025-08-16T11:42:41.777Z] 
+[2025-08-16T11:42:41.777Z] #13 [build 6/6] RUN npm run build
+[2025-08-16T11:42:41.777Z] #13 sha256:96f3016a489a3852f1a4774f9e7c7b02781d92fe02694159e0b2f1c354026a9b
+[2025-08-16T11:42:43.645Z] #13 1.619 
+[2025-08-16T11:42:43.645Z] #13 1.619 > react-frontend@0.1.0 build
+[2025-08-16T11:42:43.645Z] #13 1.619 > react-scripts build
+[2025-08-16T11:42:43.645Z] #13 1.619 
+[2025-08-16T11:42:50.136Z] #13 8.251 Creating an optimized production build...
+[2025-08-16T11:42:50.388Z] #13 8.680 Browserslist: caniuse-lite is outdated. Please run:
+[2025-08-16T11:42:50.388Z] #13 8.680   npx update-browserslist-db@latest
+[2025-08-16T11:42:50.388Z] #13 8.680   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[2025-08-16T11:45:11.652Z] #13 138.0 Browserslist: caniuse-lite is outdated. Please run:
+[2025-08-16T11:45:11.653Z] #13 138.0   npx update-browserslist-db@latest
+[2025-08-16T11:45:11.653Z] #13 138.0   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[2025-08-16T11:45:11.653Z] #13 147.4 Compiled with warnings.
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 [eslint] 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/App.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 4:25:   'Navigate' is defined but never used   no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 13:22:  'useEffect' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 13:33:  'useState' is defined but never used   no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 16:8:   'axios' is defined but never used      no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/FacultyDashboard.js/QuestionUploadForm/QuestionUpload.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 38:12:  'level' is assigned a value but never used     no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 38:19:  'setLevel' is assigned a value but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/Login/Login.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 9:18:  'SelectChangeEvent' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/NavBar/FacultyNavbar.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 3:8:  'LanguageIcon' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/NavBar/navBar.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 3:8:  'LanguageIcon' is defined but never used   no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 4:8:  'AccountCircle' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/SideBar/FacultySidebar.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 10:3:  'Button' is defined but never used    no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 14:9:  'Navigate' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/SideBar/StudentSidebar.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 10:3:  'Button' is defined but never used          no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 14:9:  'Navigate' is defined but never used        no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 16:8:  'AccountBoxIcon' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4 
+[2025-08-16T11:45:11.653Z] #13 147.4 src/components/SideBar/sideBar.js
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 10:3:  'Button' is defined but never used    no-unused-vars
+[2025-08-16T11:45:11.653Z] #13 147.4   Line 14:9:  'Navigate' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4 
+[2025-08-16T11:45:11.654Z] #13 147.4 src/components/StudentDashboard/StudentCard.js
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:15:  'useEffect' is defined but never used                no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:25:  'useState' is defined but never used                 no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 4:10:  'Box' is defined but never used                      no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 6:10:  'getStudentDashboardData' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4 
+[2025-08-16T11:45:11.654Z] #13 147.4 src/components/StudentDashboard/StudentDashboard.js
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:10:   'Card' is defined but never used                    no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:16:   'CardContent' is defined but never used             no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:29:   'Typography' is defined but never used              no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:41:   'Container' is defined but never used               no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 6:8:    'ConversionRate' is defined but never used          no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 13:10:  'dashBoardData' is assigned a value but never used  no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4 
+[2025-08-16T11:45:11.654Z] #13 147.4 src/components/Users/Career.js
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 5:8:   'SearchIcon' is defined but never used      no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 7:8:   'TextField' is defined but never used       no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 8:8:   'InputAdornment' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 9:10:  'Button' is defined but never used          no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 9:18:  'Typography' is defined but never used      no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 95:6:  'id' is assigned a value but never used     no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4 
+[2025-08-16T11:45:11.654Z] #13 147.4 src/components/Users/Faculty.js
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 5:8:   'SearchIcon' is defined but never used      no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 7:8:   'TextField' is defined but never used       no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 8:8:   'InputAdornment' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 9:10:  'Button' is defined but never used          no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 9:18:  'Typography' is defined but never used      no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 95:7:  'id' is assigned a value but never used     no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4 
+[2025-08-16T11:45:11.654Z] #13 147.4 src/components/Users/Users.js
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 1:28:   'useState' is defined but never used                                                                    no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 4:8:    'Avatar' is defined but never used                                                                      no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 5:8:    'SearchIcon' is defined but never used                                                                  no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 7:8:    'TextField' is defined but never used                                                                   no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 8:8:    'InputAdornment' is defined but never used                                                              no-unused-vars
+[2025-08-16T11:45:11.654Z] #13 147.4   Line 9:10:   'Button' is defined but never used                                                                      no-unused-vars
+[2025-08-16T11:45:11.655Z] #13 147.4   Line 9:18:   'Typography' is defined but never used                                                                  no-unused-vars
+[2025-08-16T11:45:11.655Z] #13 147.4   Line 10:10:  'faker' is defined but never used                                                                       no-unused-vars
+[2025-08-16T11:45:11.655Z] #13 147.4   Line 108:6:  React Hook useEffect has a missing dependency: 'ctx'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+[2025-08-16T11:45:11.655Z] #13 147.4 
+[2025-08-16T11:45:11.656Z] #13 147.4 src/context/ContextProvider.js
+[2025-08-16T11:45:11.656Z] #13 147.4   Line 1:17:  'useEffect' is defined but never used  no-unused-vars
+[2025-08-16T11:45:11.656Z] #13 147.4 
+[2025-08-16T11:45:11.656Z] #13 147.4 Search for the keywords to learn more about each warning.
+[2025-08-16T11:45:11.656Z] #13 147.4 To ignore, add // eslint-disable-next-line to the line before.
+[2025-08-16T11:45:11.657Z] #13 147.4 
+[2025-08-16T11:45:11.657Z] #13 147.4 File sizes after gzip:
+[2025-08-16T11:45:11.657Z] #13 147.4 
+[2025-08-16T11:45:11.657Z] #13 148.7   1.38 MB  build/static/js/main.8d75c1e6.js
+[2025-08-16T11:45:11.657Z] #13 148.7   1.77 kB  build/static/js/787.0f148dca.chunk.js
+[2025-08-16T11:45:11.657Z] #13 148.7   1.31 kB  build/static/css/main.45153fd5.css
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:11.657Z] #13 148.7 The bundle size is significantly larger than recommended.
+[2025-08-16T11:45:11.657Z] #13 148.7 Consider reducing it with code splitting: https://goo.gl/9VhYWB
+[2025-08-16T11:45:11.657Z] #13 148.7 You can also analyze the project dependencies: https://goo.gl/LeUzfb
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:11.657Z] #13 148.7 The project was built assuming it is hosted at /.
+[2025-08-16T11:45:11.657Z] #13 148.7 You can control this with the homepage field in your package.json.
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:11.657Z] #13 148.7 The build folder is ready to be deployed.
+[2025-08-16T11:45:11.657Z] #13 148.7 You may serve it with a static server:
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:11.657Z] #13 148.7   npm install -g serve
+[2025-08-16T11:45:11.657Z] #13 148.7   serve -s build
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:11.657Z] #13 148.7 Find out more about deployment here:
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:11.657Z] #13 148.7   https://cra.link/deployment
+[2025-08-16T11:45:11.657Z] #13 148.7 
+[2025-08-16T11:45:12.220Z] #13 DONE 150.5s
+[2025-08-16T11:45:24.327Z] 
+[2025-08-16T11:45:24.327Z] #12 [stage-1 2/2] COPY --from=build /app/build /usr/share/nginx/html
+[2025-08-16T11:45:24.327Z] #12 sha256:e1e084f6a9259068a8d08c14073406814a8259c13410c44c6a538f0768e2e556
+[2025-08-16T11:45:24.327Z] #12 CACHED
+[2025-08-16T11:45:24.327Z] 
+[2025-08-16T11:45:24.327Z] #14 exporting to image
+[2025-08-16T11:45:24.327Z] #14 sha256:3fc127fe14aa9f50f67054e492b6bd01e6e2ea67d86a81af8c06ab202b4b2ebf
+[2025-08-16T11:45:24.327Z] #14 exporting layers done
+[2025-08-16T11:45:24.327Z] #14 writing image sha256:82e4b20516bae243e55631aa6778cb5a186027ade3057cbd7b05efc35f0ef3a4 done
+[2025-08-16T11:45:24.327Z] #14 naming to docker.io/jay15229/lrc-frontend:1.1-7 0.0s done
+[2025-08-16T11:45:24.327Z] #14 naming to docker.io/jay15229/lrc-frontend:latest done
+[2025-08-16T11:45:24.327Z] #14 DONE 0.0s
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build BE Image)
+[Pipeline] dir
+[2025-08-16T11:45:24.978Z] Running in /var/jenkins_home/workspace/lrc-mern-pipeline/backend
+[Pipeline] {
+[Pipeline] sh
+[2025-08-16T11:45:25.393Z] + docker build -t jay15229/lrc-backend:1.1-7 -t jay15229/lrc-backend:latest .
+[2025-08-16T11:45:25.948Z] #1 [internal] load build definition from Dockerfile
+[2025-08-16T11:45:25.948Z] #1 sha256:9672ab577bfb8bc60f87db9c664e56533fd1c941ea871031d19e5d74e342df2c
+[2025-08-16T11:45:25.948Z] #1 transferring dockerfile: 274B 0.0s done
+[2025-08-16T11:45:25.948Z] #1 DONE 0.0s
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #2 [internal] load metadata for docker.io/library/node:20-alpine
+[2025-08-16T11:45:25.948Z] #2 sha256:ccecbba0a2e5c072602481fed7ccd4ede19058d4d7721294b010c0440ce9c682
+[2025-08-16T11:45:25.948Z] #2 DONE 0.0s
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #3 [internal] load .dockerignore
+[2025-08-16T11:45:25.948Z] #3 sha256:e09ba86a7aff425a52cff9ea3070ea1c4b2ad4b43604d26fcaedc2c3e1a95fbe
+[2025-08-16T11:45:25.948Z] #3 transferring context: 2B done
+[2025-08-16T11:45:25.948Z] #3 DONE 0.0s
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #9 [1/5] FROM docker.io/library/node:20-alpine
+[2025-08-16T11:45:25.948Z] #9 sha256:ee64afde9d9add5c70cf947f7725770ad9cf5f229efdb08cd301b2019744184d
+[2025-08-16T11:45:25.948Z] #9 DONE 0.0s
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #7 [internal] load build context
+[2025-08-16T11:45:25.948Z] #7 sha256:3ab0de98b4b43928934c95eb942e97bebe4c109e155939e33942179321b28e09
+[2025-08-16T11:45:25.948Z] #7 transferring context: 424.70kB 0.1s done
+[2025-08-16T11:45:25.948Z] #7 DONE 0.2s
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #8 [2/5] WORKDIR /app
+[2025-08-16T11:45:25.948Z] #8 sha256:9ef5dd9e0e197518e0821985b36fbd4f83253c03c0a9d478aade892ed86e6704
+[2025-08-16T11:45:25.948Z] #8 CACHED
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #6 [3/5] COPY package*.json ./
+[2025-08-16T11:45:25.948Z] #6 sha256:1940c50b78506e019e79a19173a294e3c1ad5f9c31b69a623e27287e1c63bd70
+[2025-08-16T11:45:25.948Z] #6 CACHED
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #5 [4/5] RUN npm ci --omit=dev --legacy-peer-deps || npm install --omit=dev --legacy-peer-deps
+[2025-08-16T11:45:25.948Z] #5 sha256:85bc24c90789252c63ce6c90b9018ca9799b54f44914f975ffb9dbf3ad8cd02b
+[2025-08-16T11:45:25.948Z] #5 CACHED
+[2025-08-16T11:45:25.948Z] 
+[2025-08-16T11:45:25.948Z] #4 [5/5] COPY . .
+[2025-08-16T11:45:25.948Z] #4 sha256:64a0f07ab0efeadec68e69ffe993cacebd23584cb3304e726e23fb865cb3f776
+[2025-08-16T11:45:25.948Z] #4 DONE 0.1s
+[2025-08-16T11:45:26.200Z] 
+[2025-08-16T11:45:26.200Z] #10 exporting to image
+[2025-08-16T11:45:26.200Z] #10 sha256:e2b2503ec918ce0678660830bce6792fc6c7e3178beb141104c10741e0976521
+[2025-08-16T11:45:26.200Z] #10 exporting layers 0.1s done
+[2025-08-16T11:45:26.200Z] #10 writing image sha256:94a126c20aa8f44bcfe51e031cd64b13dfc45bf29055d2bbb8935a83f16bbef1 done
+[2025-08-16T11:45:26.200Z] #10 naming to docker.io/jay15229/lrc-backend:1.1-7 done
+[2025-08-16T11:45:26.200Z] #10 naming to docker.io/jay15229/lrc-backend:latest
+[2025-08-16T11:45:26.200Z] #10 naming to docker.io/jay15229/lrc-backend:latest done
+[2025-08-16T11:45:26.200Z] #10 DONE 0.1s
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Login & Push)
+[Pipeline] sh
+[2025-08-16T11:45:26.604Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-16T11:45:26.604Z] 		 Affected argument(s) used the following variable(s): [DOCKERHUB_CREDS_PSW]
+[2025-08-16T11:45:26.604Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-16T11:45:26.869Z] + echo ****
+[2025-08-16T11:45:26.869Z] + docker login -u jay15229 --password-stdin
+[2025-08-16T11:45:30.102Z] WARNING! Your password will be stored unencrypted in /var/jenkins_home/.docker/config.json.
+[2025-08-16T11:45:30.103Z] Configure a credential helper to remove this warning. See
+[2025-08-16T11:45:30.103Z] https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+[2025-08-16T11:45:30.103Z] 
+[2025-08-16T11:45:30.103Z] Login Succeeded
+[2025-08-16T11:45:30.103Z] + docker push jay15229/lrc-frontend:1.1-7
+[2025-08-16T11:45:30.103Z] The push refers to repository [docker.io/jay15229/lrc-frontend]
+[2025-08-16T11:45:31.017Z] cbe233bf5d17: Preparing
+[2025-08-16T11:45:31.017Z] f9985d3fc94d: Preparing
+[2025-08-16T11:45:31.017Z] d208138be39d: Preparing
+[2025-08-16T11:45:31.017Z] a2b76470e8f1: Preparing
+[2025-08-16T11:45:31.017Z] 917b2c97271e: Preparing
+[2025-08-16T11:45:31.017Z] 16ca725632e5: Preparing
+[2025-08-16T11:45:31.017Z] 7978a9c91f72: Preparing
+[2025-08-16T11:45:31.017Z] b6ff0212304e: Preparing
+[2025-08-16T11:45:31.017Z] 418dccb7d85a: Preparing
+[2025-08-16T11:45:31.017Z] 16ca725632e5: Waiting
+[2025-08-16T11:45:31.017Z] 7978a9c91f72: Waiting
+[2025-08-16T11:45:31.017Z] b6ff0212304e: Waiting
+[2025-08-16T11:45:31.017Z] 418dccb7d85a: Waiting
+[2025-08-16T11:45:33.505Z] cbe233bf5d17: Layer already exists
+[2025-08-16T11:45:33.505Z] 917b2c97271e: Layer already exists
+[2025-08-16T11:45:33.505Z] a2b76470e8f1: Layer already exists
+[2025-08-16T11:45:33.505Z] d208138be39d: Layer already exists
+[2025-08-16T11:45:33.505Z] f9985d3fc94d: Layer already exists
+[2025-08-16T11:45:34.418Z] 7978a9c91f72: Layer already exists
+[2025-08-16T11:45:34.418Z] b6ff0212304e: Layer already exists
+[2025-08-16T11:45:34.418Z] 16ca725632e5: Layer already exists
+[2025-08-16T11:45:34.418Z] 418dccb7d85a: Layer already exists
+[2025-08-16T11:45:39.621Z] 1.1-7: digest: sha256:07518413f68beb00fe55c357b62131b8b85fa7b1418aeef19244f8c9c046a476 size: 2200
+[2025-08-16T11:45:39.621Z] + docker push jay15229/lrc-frontend:latest
+[2025-08-16T11:45:39.621Z] The push refers to repository [docker.io/jay15229/lrc-frontend]
+[2025-08-16T11:45:39.873Z] cbe233bf5d17: Preparing
+[2025-08-16T11:45:39.873Z] f9985d3fc94d: Preparing
+[2025-08-16T11:45:39.873Z] d208138be39d: Preparing
+[2025-08-16T11:45:39.873Z] a2b76470e8f1: Preparing
+[2025-08-16T11:45:39.873Z] 917b2c97271e: Preparing
+[2025-08-16T11:45:39.873Z] 16ca725632e5: Preparing
+[2025-08-16T11:45:39.873Z] 7978a9c91f72: Preparing
+[2025-08-16T11:45:39.873Z] b6ff0212304e: Preparing
+[2025-08-16T11:45:39.873Z] 418dccb7d85a: Preparing
+[2025-08-16T11:45:39.873Z] 7978a9c91f72: Waiting
+[2025-08-16T11:45:39.873Z] b6ff0212304e: Waiting
+[2025-08-16T11:45:39.873Z] 16ca725632e5: Waiting
+[2025-08-16T11:45:39.873Z] 418dccb7d85a: Waiting
+[2025-08-16T11:45:42.363Z] d208138be39d: Layer already exists
+[2025-08-16T11:45:42.363Z] f9985d3fc94d: Layer already exists
+[2025-08-16T11:45:42.363Z] a2b76470e8f1: Layer already exists
+[2025-08-16T11:45:42.363Z] 917b2c97271e: Layer already exists
+[2025-08-16T11:45:42.363Z] cbe233bf5d17: Layer already exists
+[2025-08-16T11:45:43.278Z] b6ff0212304e: Layer already exists
+[2025-08-16T11:45:43.278Z] 418dccb7d85a: Layer already exists
+[2025-08-16T11:45:43.278Z] 16ca725632e5: Layer already exists
+[2025-08-16T11:45:43.278Z] 7978a9c91f72: Layer already exists
+[2025-08-16T11:45:46.514Z] latest: digest: sha256:07518413f68beb00fe55c357b62131b8b85fa7b1418aeef19244f8c9c046a476 size: 2200
+[2025-08-16T11:45:46.514Z] + docker push jay15229/lrc-backend:1.1-7
+[2025-08-16T11:45:46.514Z] The push refers to repository [docker.io/jay15229/lrc-backend]
+[2025-08-16T11:45:47.429Z] 020c0ffe90ea: Preparing
+[2025-08-16T11:45:47.429Z] 5d002b7a51b7: Preparing
+[2025-08-16T11:45:47.429Z] deb01eacbe3b: Preparing
+[2025-08-16T11:45:47.429Z] 18f577220ce4: Preparing
+[2025-08-16T11:45:47.429Z] eadc3b779d42: Preparing
+[2025-08-16T11:45:47.429Z] 2e12e022f9bc: Preparing
+[2025-08-16T11:45:47.429Z] 54e9a650f7b7: Preparing
+[2025-08-16T11:45:47.429Z] 2e12e022f9bc: Waiting
+[2025-08-16T11:45:47.429Z] 418dccb7d85a: Preparing
+[2025-08-16T11:45:47.429Z] 54e9a650f7b7: Waiting
+[2025-08-16T11:45:47.429Z] 418dccb7d85a: Waiting
+[2025-08-16T11:45:49.295Z] 5d002b7a51b7: Layer already exists
+[2025-08-16T11:45:49.295Z] eadc3b779d42: Layer already exists
+[2025-08-16T11:45:49.295Z] deb01eacbe3b: Layer already exists
+[2025-08-16T11:45:49.295Z] 18f577220ce4: Layer already exists
+[2025-08-16T11:45:50.643Z] 418dccb7d85a: Layer already exists
+[2025-08-16T11:45:50.643Z] 2e12e022f9bc: Layer already exists
+[2025-08-16T11:45:50.643Z] 54e9a650f7b7: Layer already exists
+[2025-08-16T11:45:54.772Z] 020c0ffe90ea: Pushed
+[2025-08-16T11:46:04.661Z] 1.1-7: digest: sha256:eeb2414db80a280145e9a6b2b9fe3a07e3e053487e1b70e88a44d731831546ad size: 1995
+[2025-08-16T11:46:04.661Z] + docker push jay15229/lrc-backend:latest
+[2025-08-16T11:46:04.661Z] The push refers to repository [docker.io/jay15229/lrc-backend]
+[2025-08-16T11:46:04.661Z] 020c0ffe90ea: Preparing
+[2025-08-16T11:46:04.661Z] 5d002b7a51b7: Preparing
+[2025-08-16T11:46:04.661Z] deb01eacbe3b: Preparing
+[2025-08-16T11:46:04.661Z] 18f577220ce4: Preparing
+[2025-08-16T11:46:04.661Z] eadc3b779d42: Preparing
+[2025-08-16T11:46:04.661Z] 2e12e022f9bc: Preparing
+[2025-08-16T11:46:04.661Z] 54e9a650f7b7: Preparing
+[2025-08-16T11:46:04.661Z] 418dccb7d85a: Preparing
+[2025-08-16T11:46:04.661Z] 2e12e022f9bc: Waiting
+[2025-08-16T11:46:04.661Z] 54e9a650f7b7: Waiting
+[2025-08-16T11:46:04.661Z] 418dccb7d85a: Waiting
+[2025-08-16T11:46:06.004Z] 5d002b7a51b7: Layer already exists
+[2025-08-16T11:46:06.004Z] eadc3b779d42: Layer already exists
+[2025-08-16T11:46:06.004Z] 18f577220ce4: Layer already exists
+[2025-08-16T11:46:06.004Z] deb01eacbe3b: Layer already exists
+[2025-08-16T11:46:06.556Z] 020c0ffe90ea: Layer already exists
+[2025-08-16T11:46:07.108Z] 2e12e022f9bc: Layer already exists
+[2025-08-16T11:46:07.108Z] 54e9a650f7b7: Layer already exists
+[2025-08-16T11:46:07.108Z] 418dccb7d85a: Layer already exists
+[2025-08-16T11:46:11.235Z] latest: digest: sha256:eeb2414db80a280145e9a6b2b9fe3a07e3e053487e1b70e88a44d731831546ad size: 1995
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Create k8s Manifests)
+[Pipeline] sh
+[2025-08-16T11:46:11.808Z] + mkdir -p k8s
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy (apply k8s/))
+[Pipeline] withCredentials
+[2025-08-16T11:46:12.656Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2025-08-16T11:46:12.768Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-16T11:46:12.768Z] 		 Affected argument(s) used the following variable(s): [KUBECONFIG]
+[2025-08-16T11:46:12.768Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-16T11:46:13.034Z] + set -e
+[2025-08-16T11:46:13.034Z] + echo Using kubeconfig at: ****
+[2025-08-16T11:46:13.034Z] Using kubeconfig at: ****
+[2025-08-16T11:46:13.035Z] + kubectl get nodes
+[2025-08-16T11:46:13.587Z] NAME       STATUS   ROLES           AGE   VERSION
+[2025-08-16T11:46:13.587Z] minikube   Ready    control-plane   41h   v1.33.1
+[2025-08-16T11:46:13.587Z] + kubectl create namespace lrc --dry-run=client -o yaml
+[2025-08-16T11:46:13.587Z] + kubectl apply -f -
+[2025-08-16T11:46:14.142Z] namespace/lrc configured
+[2025-08-16T11:46:14.143Z] + kubectl -n lrc apply -f k8s/
+[2025-08-16T11:46:14.699Z] ingress.networking.k8s.io/lrc-ingress unchanged
+[2025-08-16T11:46:14.950Z] deployment.apps/lrc-backend configured
+[2025-08-16T11:46:15.202Z] service/lrc-backend-svc configured
+[2025-08-16T11:46:15.202Z] deployment.apps/lrc-frontend configured
+[2025-08-16T11:46:15.453Z] service/lrc-frontend-svc configured
+[2025-08-16T11:46:15.705Z] service/mongo configured
+[2025-08-16T11:46:15.705Z] deployment.apps/mongo created
+[2025-08-16T11:46:15.705Z] + kubectl -n lrc rollout status deploy/lrc-frontend
+[2025-08-16T11:46:15.956Z] Waiting for deployment "lrc-frontend" rollout to finish: 1 old replicas are pending termination...
+[2025-08-16T11:46:30.732Z] Waiting for deployment "lrc-frontend" rollout to finish: 1 old replicas are pending termination...
+[2025-08-16T11:46:30.732Z] deployment "lrc-frontend" successfully rolled out
+[2025-08-16T11:46:30.732Z] + kubectl -n lrc rollout status deploy/lrc-backend
+[2025-08-16T11:46:30.732Z] Waiting for deployment "lrc-backend" rollout to finish: 1 old replicas are pending termination...
+[2025-08-16T11:46:48.708Z] Waiting for deployment "lrc-backend" rollout to finish: 1 old replicas are pending termination...
+[2025-08-16T11:46:48.708Z] deployment "lrc-backend" successfully rolled out
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke (cluster-side))
+[Pipeline] withCredentials
+[2025-08-16T11:46:49.134Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2025-08-16T11:46:49.556Z] + kubectl -n lrc get pods,svc,ingress -o wide
+[2025-08-16T11:46:49.807Z] NAME                                READY   STATUS        RESTARTS        AGE     IP            NODE       NOMINATED NODE   READINESS GATES
+[2025-08-16T11:46:49.807Z] pod/lrc-backend-7fcdfd5c68-bb8zz    1/1     Running       0               35s     10.244.0.31   minikube   <none>           <none>
+[2025-08-16T11:46:49.807Z] pod/lrc-backend-f69f8ccb9-q6v6r     1/1     Terminating   1 (4h36m ago)   4h38m   10.244.0.29   minikube   <none>           <none>
+[2025-08-16T11:46:49.807Z] pod/lrc-frontend-7c9c84c984-7r2wq   1/1     Running       0               34s     10.244.0.30   minikube   <none>           <none>
+[2025-08-16T11:46:49.807Z] pod/mongo-0                         1/1     Running       1 (4h44m ago)   18h     10.244.0.28   minikube   <none>           <none>
+[2025-08-16T11:46:49.807Z] pod/mongo-77d8f9bc55-7dz5x          1/1     Running       0               34s     10.244.0.32   minikube   <none>           <none>
+[2025-08-16T11:46:49.807Z] 
+[2025-08-16T11:46:49.807Z] NAME                       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE   SELECTOR
+[2025-08-16T11:46:49.807Z] service/lrc-backend-svc    ClusterIP   10.96.144.110   <none>        3001/TCP    18h   app=lrc-backend
+[2025-08-16T11:46:49.807Z] service/lrc-frontend-svc   ClusterIP   10.110.145.42   <none>        80/TCP      18h   app=lrc-frontend
+[2025-08-16T11:46:49.807Z] service/mongo              ClusterIP   None            <none>        27017/TCP   18h   app=mongo
+[2025-08-16T11:46:49.807Z] 
+[2025-08-16T11:46:49.808Z] NAME                                    CLASS   HOSTS      ADDRESS        PORTS   AGE
+[2025-08-16T11:46:49.808Z] ingress.networking.k8s.io/lrc-ingress   nginx   lr.local   192.168.49.2   80      18h
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] withCredentials
+[2025-08-16T11:46:50.240Z] Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
+[2025-08-16T11:46:51.486Z] + kubectl -n lrc get pods,svc,ingress -o wide
+[2025-08-16T11:46:51.740Z] NAME                                READY   STATUS        RESTARTS        AGE     IP            NODE       NOMINATED NODE   READINESS GATES
+[2025-08-16T11:46:51.740Z] pod/lrc-backend-7fcdfd5c68-bb8zz    1/1     Running       1 (2s ago)      37s     10.244.0.31   minikube   <none>           <none>
+[2025-08-16T11:46:51.740Z] pod/lrc-backend-f69f8ccb9-q6v6r     1/1     Terminating   1 (4h36m ago)   4h38m   10.244.0.29   minikube   <none>           <none>
+[2025-08-16T11:46:51.740Z] pod/lrc-frontend-7c9c84c984-7r2wq   1/1     Running       0               36s     10.244.0.30   minikube   <none>           <none>
+[2025-08-16T11:46:51.740Z] pod/mongo-0                         1/1     Running       1 (4h44m ago)   18h     10.244.0.28   minikube   <none>           <none>
+[2025-08-16T11:46:51.740Z] pod/mongo-77d8f9bc55-7dz5x          1/1     Running       0               36s     10.244.0.32   minikube   <none>           <none>
+[2025-08-16T11:46:51.740Z] 
+[2025-08-16T11:46:51.740Z] NAME                       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE   SELECTOR
+[2025-08-16T11:46:51.740Z] service/lrc-backend-svc    ClusterIP   10.96.144.110   <none>        3001/TCP    18h   app=lrc-backend
+[2025-08-16T11:46:51.740Z] service/lrc-frontend-svc   ClusterIP   10.110.145.42   <none>        80/TCP      18h   app=lrc-frontend
+[2025-08-16T11:46:51.740Z] service/mongo              ClusterIP   None            <none>        27017/TCP   18h   app=mongo
+[2025-08-16T11:46:51.740Z] 
+[2025-08-16T11:46:51.741Z] NAME                                    CLASS   HOSTS      ADDRESS        PORTS   AGE
+[2025-08-16T11:46:51.741Z] ingress.networking.k8s.io/lrc-ingress   nginx   lr.local   192.168.49.2   80      18h
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+[2025-08-16T11:46:51.973Z] Pipeline finished. FE image: jay15229/lrc-frontend:1.1-7  BE image: jay15229/lrc-backend:1.1-7
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
